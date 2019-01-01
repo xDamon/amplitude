@@ -6,7 +6,8 @@
   "scripts": {
     "build": "gulp build",
     "start": "node dist/magnitude.js",
-    "test": "npm run build && npm run start"
+		"test": "npm run build && npm run start",
+		"prepare": "gulp build"
   },
   "keywords": [
     "Bot",
