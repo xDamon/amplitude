@@ -1,5 +1,5 @@
 import { Message, GuildMember } from "discord.js";
-import { MiddlewareResult } from "@discord-yuh/core";
+import { MiddlewareResult } from "@discord-yuh/standard";
 import { MusicClient } from "@Client/MusicClient";
 
 export async function musicOnly(message: Message, args: any[]): Promise<MiddlewareResult> {
