@@ -46,8 +46,8 @@ commands
 	.register(new HelpCommand());
 
 middleware
-	.register(channelsMetadata)
-	.register(cooldown(3000));
+	.register(cooldown(3000))
+	.register(channelsMetadata);
 
 const commandLoader: CommandLoader = new CommandLoader(commands);
 
