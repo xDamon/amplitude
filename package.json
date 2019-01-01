@@ -1,0 +1,37 @@
+{
+  "name": "magnitude",
+  "version": "0.0.1",
+  "description": "Music Bot for Discord",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "gulp build",
+    "start": "node dist/magnitude.js",
+    "test": "npm run build && npm run start"
+  },
+  "keywords": [
+    "Bot",
+    "Discord",
+    "Music"
+  ],
+  "author": "Damon",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@discord-yuh/standard": "github:discord-yuh/standard",
+    "discord.js": "^11.4.2",
+    "lavalink": "^2.3.1",
+    "node-fetch": "^2.3.0"
+  },
+  "devDependencies": {
+    "@discord-yuh/configuration": "github:discord-yuh/configuration",
+    "@types/node": "^10.12.18",
+    "@types/node-fetch": "^2.1.4",
+    "@types/ws": "^6.0.1",
+    "del": "^3.0.0",
+    "gulp": "^4.0.0",
+    "gulp-replace": "^1.0.0",
+    "gulp-typescript": "^5.0.0",
+    "merge-stream": "^1.0.1",
+    "tslint": "^5.12.0",
+    "typescript": "^3.2.2"
+  }
+}

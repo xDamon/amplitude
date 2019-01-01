@@ -1,0 +1,1 @@
+module.exports = require("@discord-yuh/configuration/.prettierrc.json");

@@ -1,0 +1,15 @@
+{
+	"extends": "@discord-yuh/configuration/tsconfig.json",
+	"compilerOptions": {
+		"baseUrl": "src",
+		"paths": {
+			"@Client/*": ["client/*"],
+			"@Commands/*": ["commands/*"],
+			"@Definition/*": ["definition/*"],
+			"@Lava/*": ["lava/*"],
+			"@Middleware/*": ["middleware/*"],
+			"@Resolvers/*": ["resolvers/*"],
+			"@Util/*": ["util/*"]
+		}
+	}
+}
