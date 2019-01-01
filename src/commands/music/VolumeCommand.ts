@@ -6,8 +6,9 @@ import { LavaPlayer } from "@Lava/player/LavaPlayer";
 
 @GuildOnly
 export class VolumeCommand extends Command {
-	public static readonly MAX_VOLUME: number = 1000;
+	public static readonly MAX_VOLUME: number = 38;
 	public static readonly MIN_VOLUME: number = 0;
+	public static readonly FACTOR: number = 25;
 
 	public readonly aliases: string[];
 	public readonly description: string;
@@ -17,7 +18,7 @@ export class VolumeCommand extends Command {
 		super();
 
 		this.aliases = [];
-		this.description = "Resumes the current song.";
+		this.description = "Changes the volume, minimum is 0, maximum is 38.";
 		this.usage = "[prefix][name] [volume]";
 	}
 
@@ -26,29 +27,40 @@ export class VolumeCommand extends Command {
 	public async execute(message: Message, [input]: [number | string]): Promise<void> {
 		const client: MusicClient = message.client as MusicClient;
 		const player: LavaPlayer = client.lava.players.get(message.guild.id);
+		const oldVolume: number = player.volume > 0 ? this._toUserVolume(player.volume) : 0;
 
-		let volume = player.volume;
+		let volume: number = oldVolume;
 
 		if (typeof input === "string") {
 			switch (input) {
-				case "up": volume += 10; break;
-				case "down": volume -= 10; break;
+				case "up": volume++; break;
+				case "down": volume--; break;
 			}
 		} else {
 			volume = input;
 		}
 
-		if (volume > VolumeCommand.MAX_VOLUME) {
+		if (volume >= VolumeCommand.MAX_VOLUME) {
 			volume = VolumeCommand.MAX_VOLUME;
-		} else if (volume < VolumeCommand.MIN_VOLUME) {
+		} else if (volume <= VolumeCommand.MIN_VOLUME) {
 			volume = VolumeCommand.MIN_VOLUME;
 		}
 
-		if (volume === player.volume) {
+		const nextVolume: number = volume > 0 ? this._toLavaVolume(volume) : 0;
+
+		if (nextVolume === player.volume) {
 			await message.channel.send("We're already at that volume mate.");
 		} else {
-			await message.channel.send(`Changing volume from ${player.volume} to ${volume}`);
-			await player.setVolume(volume);
+			await message.channel.send(`Changing volume from ${oldVolume} to ${volume}.`);
+			await player.setVolume(nextVolume);
 		}
+	}
+
+	private _toLavaVolume(volume: number): number {
+		return ((volume - 1) * VolumeCommand.FACTOR) + LavaPlayer.DEFAULT_VOLUME;
+	}
+
+	private _toUserVolume(volume: number): number {
+		return ((volume - LavaPlayer.DEFAULT_VOLUME)  / VolumeCommand.FACTOR) + 1;
 	}
 }

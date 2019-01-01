@@ -24,14 +24,16 @@ export class ShuffleCommand extends Command {
 		const player: LavaPlayer = client.lava.players.get(message.guild.id);
 		const queue: Track[] = player.queue;
 
-		let temp: Track;
+		if (queue.length > 0) {
+			let temp: Track;
 
-		for (let i = queue.length - 1; i > 0; i--) {
-				const j: number = Math.floor(Math.random() * (i + 1));
+			for (let i = queue.length - 1; i > 0; i--) {
+					const j: number = Math.floor(Math.random() * (i + 1));
 
-				temp = queue[i];
-				queue[i] = queue[j];
-				queue[j] = temp;
+					temp = queue[i];
+					queue[i] = queue[j];
+					queue[j] = temp;
+			}
 		}
 
 		await message.channel.send("The queue has been shuffled.");

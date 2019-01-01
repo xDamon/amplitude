@@ -9,16 +9,16 @@ export async function musicOnly(message: Message, args: any[]): Promise<Middlewa
 
 	const client: MusicClient = message.client as MusicClient;
 	const player: LavaPlayer = client.lava.players.get(message.guild.id);
+	const me: GuildMember = await message.guild.fetchMember(client.user.id);
 
-	if (player.status === Status.INSTANTIATED || player.status === Status.STUCK) {
-		result = "No music is playing.";
-	} else {
+	if (me.voiceChannelID && player.status !== Status.INSTANTIATED) {
 		const member: GuildMember = await message.guild.fetchMember(message.author.id);
-		const me: GuildMember = await message.guild.fetchMember(client.user.id);
 
 		if (member.voiceChannelID !== me.voiceChannelID) {
 			result = "I am not in your voice channel.";
 		}
+	} else {
+		result = "No music is playing.";
 	}
 
 	return result;

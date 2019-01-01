@@ -2,6 +2,8 @@ import { Player, Track } from "lavalink";
 import { LavaNode } from "@Lava/LavaNode";
 
 export class LavaPlayer extends Player {
+	public static readonly DEFAULT_VOLUME = 50;
+
 	public volume: number;
 
 	public readonly node: LavaNode;
@@ -11,7 +13,7 @@ export class LavaPlayer extends Player {
 		super(node, guildID);
 
 		this.queue = [];
-		this.volume = 50;
+		this.volume = LavaPlayer.DEFAULT_VOLUME;
 	}
 
 	public async play(
