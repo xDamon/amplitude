@@ -94,11 +94,11 @@ export class PlayCommand extends Command {
 					}
 
 					const track: Track = queue[0];
-					const tag: string = this._createTrackTag(track);
 
 					await player.join(member.voiceChannelID);
 					await player.play(track.track);
-					await message.channel.send(`🎵 Now playing ${tag} 🎵`);
+
+					player.emit("playing", track);
 				}
 			} else {
 				await status.edit("I could not find that track.");

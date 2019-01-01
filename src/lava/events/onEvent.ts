@@ -14,7 +14,6 @@ export async function onEvent(this: LavaNode, e: LavaEvent): Promise<void> {
 
 		if (e.reason === "STOPPED" || queue.length === 0) {
 			await player.leave();
-			await player.destroy();
 
 			player.removeAllListeners();
 		} else {

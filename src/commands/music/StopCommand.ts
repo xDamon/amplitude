@@ -3,6 +3,7 @@ import { Message } from "discord.js";
 import { MusicClient } from "@Client/MusicClient";
 import { musicOnly } from "@Middleware/musicOnly";
 import { Player } from "lavalink";
+import { Markdown } from "@Util/Markdown";
 
 @GuildOnly
 export class StopCommand extends Command {
@@ -23,6 +24,9 @@ export class StopCommand extends Command {
 		const client: MusicClient = message.client as MusicClient;
 		const player: Player = client.lava.players.get(message.guild.id);
 
+		const tag: string = Markdown.bold(message.author.tag);
+
 		await player.stop();
+		await message.channel.send(`Playback stopped manually by ${tag}.`);
 	}
 }
