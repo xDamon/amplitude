@@ -1,4 +1,4 @@
-import { Command, GuildOnly, middleware, args, r, cooldown } from "@discord-yuh/standard";
+import { Command, GuildOnly, middleware, args, r } from "@discord-yuh/standard";
 import { Message, GuildMember, StreamDispatcher } from "discord.js";
 import { MusicClient } from "@Client/MusicClient";
 import { musicOnly } from "@Middleware/musicOnly";
@@ -22,7 +22,6 @@ export class VolumeCommand extends Command {
 	}
 
 	@middleware(musicOnly)
-	@middleware(cooldown(3000))
 	@middleware(args(r.or(r.integer, r.oneOf("up", "down"))))
 	public async execute(message: Message, [input]: [number | string]): Promise<void> {
 		const client: MusicClient = message.client as MusicClient;

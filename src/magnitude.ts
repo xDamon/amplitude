@@ -6,7 +6,8 @@ import {
 	PingCommand,
 	EvalCommand,
 	HelpCommand,
-	channelsMetadata
+	channelsMetadata,
+	cooldown
 } from "@discord-yuh/standard";
 import { Config } from "@Definition/Config";
 import { MusicClient } from "@Client/MusicClient";
@@ -45,7 +46,8 @@ commands
 	.register(new HelpCommand());
 
 middleware
-	.register(channelsMetadata);
+	.register(channelsMetadata)
+	.register(cooldown(3000));
 
 const commandLoader: CommandLoader = new CommandLoader(commands);
 
