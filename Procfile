@@ -1,1 +1,1 @@
-worker: gulp compile && npm run start
+worker: npm run start
