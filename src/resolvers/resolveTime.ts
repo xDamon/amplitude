@@ -1,6 +1,6 @@
 import { Message } from "discord.js";
 
-const regex: RegExp = /(?:(\d{2}):)?((?:\d{2}|\d{1})):(\d{2})/;
+const regex: RegExp = /(?:(\d+):)?(?:(\d+):)?(\d+)/;
 
 export function resolveTime(message: Message, raw: string): number {
 	let result: number;
