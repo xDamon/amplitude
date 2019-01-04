@@ -5,13 +5,12 @@
   "main": "dist/main.js",
   "engines": {
     "node": "10.15.0",
-    "npm": "6.0.0"
+    "npm": "6.4.1"
   },
   "scripts": {
     "build": "gulp build",
     "start": "node dist/magnitude.js",
-    "test": "npm run build && npm run start",
-    "prepare": "gulp compile"
+    "test": "npm run build && npm run start"
   },
   "keywords": [
     "Bot",
