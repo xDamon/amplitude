@@ -29,10 +29,10 @@
   },
   "devDependencies": {
     "@discord-yuh/configuration": "github:discord-yuh/configuration",
+    "@discord-yuh/gulp-alias": "github:discord-yuh/gulp-alias",
     "@types/node": "^10.12.18",
     "@types/node-fetch": "^2.1.4",
     "@types/ws": "^6.0.1",
-    "del": "^3.0.0",
     "gulp": "^4.0.0",
     "gulp-replace": "^1.0.0",
     "gulp-typescript": "^5.0.0",

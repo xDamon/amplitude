@@ -3,9 +3,11 @@ const path = require("path");
 const gulp = require("gulp");
 const typescript = require("gulp-typescript");
 const merge = require("merge-stream");
-const alias = require("./gulp-alias.js");
+const alias = require("@discord-yuh/gulp-alias");
 
 const project = typescript.createProject("tsconfig.json");
+
+const { baseUrl, paths } = project.config.compilerOptions;
 
 const input = "src";
 const output = "dist";
@@ -19,11 +21,11 @@ function compile() {
 		.pipe(project());
 
 	const js = compiled.js
-		.pipe(alias.js())
+		.pipe(alias.js(baseUrl, paths))
 		.pipe(gulp.dest(output))
 
 	const dts = compiled.dts
-		.pipe(alias.ts())
+		.pipe(alias.ts(baseUrl, paths))
 		.pipe(gulp.dest(output));
 
 	return merge(js, dts);
