@@ -6,11 +6,11 @@ export function resolveTime(message: Message, raw: string): number {
 	let result: number;
 
 	if (regex.test(raw)) {
-		const exec: RegExpExecArray = regex.exec(raw);
+		const r: string[] = raw.split(":");
 
-		const h: number = Number(exec[1]) || 0;
-		const m: number = Number(exec[2]) || 0;
-		const s: number = Number(exec[3]) || 0;
+		const h: number = parseInt(r[r.length - 3]) || 0;
+		const m: number = parseInt(r[r.length - 2]) || 0;
+		const s: number = parseInt(r[r.length - 1]) || 0;
 
 		result = (
 			(h * 60 * 60 * 1000) +
