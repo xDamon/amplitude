@@ -2,7 +2,8 @@
   "name": "magnitude",
   "version": "0.0.1",
   "description": "Music Bot for Discord",
-  "main": "dist/main.js",
+	"main": "dist/magnitude.js",
+	"types": "dist/magnitude.d.ts",
   "engines": {
     "node": "10.15.0",
     "npm": "6.4.1"
