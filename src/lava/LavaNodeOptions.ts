@@ -1,4 +1,4 @@
-export type MusicNodeOptions = {
+export type LavaNodeOptions = {
 	userID: string;
 	password: string;
 	hosts: {

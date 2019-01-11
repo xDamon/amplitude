@@ -4,7 +4,7 @@ import { onReady } from "@Client/events/onReady";
 import { onUnknownCommand } from "@Client/events/onUnknownCommand";
 import { Collection } from "discord.js";
 import { LavaNode } from "@Lava/LavaNode";
-import { MusicNodeOptions } from "@Lava/LavaNodeOptions";
+import { MusicClientSettings } from "@Client/MusicClientSettings";
 
 @Listen({
 	raw: onRaw,
@@ -14,15 +14,9 @@ import { MusicNodeOptions } from "@Lava/LavaNodeOptions";
 export class MusicClient extends YuhClient {
 	public readonly lava: LavaNode;
 
-	public constructor(settings: MusicClient.Settings) {
+	public constructor(settings: MusicClientSettings) {
 		super(settings);
 
 		this.lava = new LavaNode(this, settings.lava);
 	}
-}
-
-export namespace MusicClient {
-	export type Settings = YuhClient.Settings & {
-		lava: MusicNodeOptions;
-	};
 }

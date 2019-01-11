@@ -1,5 +1,5 @@
 import { BaseNode, TrackResponse } from "lavalink";
-import { MusicNodeOptions } from "./LavaNodeOptions";
+import { LavaNodeOptions } from "@Lava/LavaNodeOptions";
 import { MusicClient } from "@Client/MusicClient";
 import { LavaPlayer } from "@Lava/player/LavaPlayer";
 import { LavaPlayerStore } from "@Lava/player/LavaPlayerStore";
@@ -15,7 +15,7 @@ export class LavaNode extends BaseNode {
 	public readonly players: LavaPlayerStore;
 	public readonly http: RedirectHttp;
 
-	public constructor(client: MusicClient, options: MusicNodeOptions) {
+	public constructor(client: MusicClient, options: LavaNodeOptions) {
 		super(options);
 
 		this.client = client;
