@@ -9,7 +9,7 @@ import { MusicClientSettings } from "@Client/MusicClientSettings";
 @Listen({
 	raw: onRaw,
 	ready: onReady,
-	unknownCommand: onUnknownCommand
+	unknownComand: onUnknownCommand
 })
 export class MusicClient extends YuhClient {
 	public readonly lava: LavaNode;
