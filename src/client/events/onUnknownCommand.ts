@@ -11,6 +11,8 @@ export async function onUnknownCommand(
 	const help: Command = this.commands.get("help") as Command;
 	const needsHelp: boolean = name.endsWith("?");
 
+	console.log("unknown", help);
+
 	if (needsHelp && help) {
 		try {
 			await help.execute(message, [name.replace("?", "")]);
