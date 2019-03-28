@@ -5,9 +5,9 @@ export class LavaPlayer extends Player {
 	public static readonly DEFAULT_VOLUME = 50;
 
 	public volume: number;
+	public queue: Track[];
 
 	public readonly node: LavaNode;
-	public readonly queue: Track[];
 
 	public constructor(node: LavaNode, guildID: string) {
 		super(node, guildID);

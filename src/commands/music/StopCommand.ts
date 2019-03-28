@@ -2,8 +2,8 @@ import { Command, middleware, GuildOnly } from "@discord-yuh/standard";
 import { Message } from "discord.js";
 import { MusicClient } from "@Client/MusicClient";
 import { musicOnly } from "@Middleware/musicOnly";
-import { Player } from "lavalink";
 import { Markdown } from "@Util/Markdown";
+import { LavaPlayer } from "@Lava/player/LavaPlayer";
 
 @GuildOnly
 export class StopCommand extends Command {
@@ -22,9 +22,11 @@ export class StopCommand extends Command {
 	@middleware(musicOnly)
 	public async execute(message: Message): Promise<void> {
 		const client: MusicClient = message.client as MusicClient;
-		const player: Player = client.lava.players.get(message.guild.id);
+		const player: LavaPlayer = client.lava.players.get(message.guild.id);
 
 		const tag: string = Markdown.bold(message.author.tag);
+
+		player.queue = [];
 
 		await player.stop();
 		await message.channel.send(`Playback stopped manually by ${tag}.`);
