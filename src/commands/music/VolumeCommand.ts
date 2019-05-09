@@ -6,9 +6,9 @@ import { LavaPlayer } from "@Lava/player/LavaPlayer";
 
 @GuildOnly
 export class VolumeCommand extends Command {
-	public static readonly MAX_VOLUME: number = 38;
+	public static readonly FACTOR: number = 19;
+	public static readonly MAX_VOLUME: number = (LavaPlayer.MAX_VOLUME - LavaPlayer.DEFAULT_VOLUME) / VolumeCommand.FACTOR;
 	public static readonly MIN_VOLUME: number = 0;
-	public static readonly FACTOR: number = 25;
 
 	public readonly aliases: string[];
 	public readonly description: string;
@@ -19,7 +19,7 @@ export class VolumeCommand extends Command {
 
 		this.aliases = [];
 		this.description = "Changes the volume, minimum is 0, maximum is 38.";
-		this.usage = "[prefix][name] [volume]";
+		this.usage = "[prefix][name] [volume?]";
 	}
 
 	@middleware(musicOnly)
@@ -31,28 +31,35 @@ export class VolumeCommand extends Command {
 
 		let volume: number = oldVolume;
 
-		if (typeof input === "string") {
-			switch (input) {
-				case "up": volume++; break;
-				case "down": volume--; break;
+		if (input) {
+			if (typeof input === "string") {
+				switch (input) {
+					case "up": volume += 5; break;
+					case "down": volume -= 5; break;
+				}
+			} else {
+				volume = input;
+			}
+
+			if (volume > VolumeCommand.MAX_VOLUME) {
+				volume = VolumeCommand.MAX_VOLUME;
+				await message.channel.send(`Changing volume to the maximum volume (${VolumeCommand.MAX_VOLUME}).`);
+			} else if (volume < VolumeCommand.MIN_VOLUME) {
+				volume = VolumeCommand.MIN_VOLUME;
+				await message.channel.send(`Changing volume to the minimum volume (${VolumeCommand.MIN_VOLUME}).`);
+			} else if (volume === this._toUserVolume(player.volume)) {
+				await message.channel.send("We're already at that volume mate.");
+			} else {
+				await message.channel.send(`Changing volume from ${oldVolume} to ${volume}`);
+			}
+
+			const nextVolume: number = volume > 0 ? this._toLavaVolume(volume) : 0;
+
+			if (nextVolume !== player.volume) {
+				await player.setVolume(nextVolume);
 			}
 		} else {
-			volume = input;
-		}
-
-		if (volume >= VolumeCommand.MAX_VOLUME) {
-			volume = VolumeCommand.MAX_VOLUME;
-		} else if (volume <= VolumeCommand.MIN_VOLUME) {
-			volume = VolumeCommand.MIN_VOLUME;
-		}
-
-		const nextVolume: number = volume > 0 ? this._toLavaVolume(volume) : 0;
-
-		if (nextVolume === player.volume) {
-			await message.channel.send("We're already at that volume mate.");
-		} else {
-			await message.channel.send(`Changing volume from ${oldVolume} to ${volume}.`);
-			await player.setVolume(nextVolume);
+			await message.channel.send(`The current volume is ${oldVolume}.`);
 		}
 	}
 
