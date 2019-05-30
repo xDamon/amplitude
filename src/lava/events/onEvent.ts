@@ -4,6 +4,8 @@ import { LavaNode } from "@Lava/LavaNode";
 import { Track } from "lavalink";
 
 export async function onEvent(this: LavaNode, e: LavaEvent): Promise<void> {
+	console.log(e);
+
 	if (e.type === "TrackEndEvent") {
 		const player: LavaPlayer = this.players.get(e.guildId);
 		const queue: Track[] = player.queue;
