@@ -6,35 +6,44 @@ const merge = require("merge-stream");
 const alias = require("@discord-yuh/gulp-alias");
 
 const project = typescript.createProject("tsconfig.json");
+const compilerOptions = project.config.compilerOptions;
 
-const { baseUrl, paths } = project.config.compilerOptions;
-
-const input = "src";
-const output = "dist";
-
-function clean() {
-	return del(`${output}/**/*.*`);
+function createCleanTask(path) {
+	return function clean() {
+		return del(path);
+	};
 }
 
-function compile() {
-	const compiled = gulp.src(`${input}/**/*.ts`,  { base: input })
+function createCompileTask(inputDir, outputDir, compilerOptions) {
+	const { baseUrl, paths } = compilerOptions;
+
+	return function compile() {
+		const compiled = gulp.src(`${inputDir}/**/*.ts`,  { base: inputDir })
 		.pipe(project());
 
-	const js = compiled.js
-		.pipe(alias.js(baseUrl, paths))
-		.pipe(gulp.dest(output))
+		const js = compiled.js
+			.pipe(alias.js(baseUrl, paths))
+			.pipe(gulp.dest(outputDir))
 
-	const dts = compiled.dts
-		.pipe(alias.ts(baseUrl, paths))
-		.pipe(gulp.dest(output));
+		const dts = compiled.dts
+			.pipe(alias.ts(baseUrl, paths))
+			.pipe(gulp.dest(outputDir));
 
-	return merge(js, dts);
+		return merge(js, dts);		
+	};
 }
 
-const build = gulp.series(clean, compile);
+function createCopyTask(input, output) {
+	return function copy() {
+		return gulp.src(input).pipe(gulp.dest(output));
+	};
+}
+
+const build = gulp.series(
+	createCleanTask("dist/**/*.*"),
+	createCompileTask("src", "dist", compilerOptions)
+);
 
 module.exports = {
-	clean,
-	compile,
 	build
 };

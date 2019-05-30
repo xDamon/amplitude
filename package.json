@@ -9,10 +9,9 @@
     "npm": "6.4.1"
   },
   "scripts": {
-    "build": "gulp build",
+		"build": "gulp build",
     "start": "node dist/magnitude.js",
-    "test": "npm run build && npm run start",
-    "prepare": "gulp compile"
+    "build-start": "npm run build && npm run start"
   },
   "keywords": [
     "Bot",
