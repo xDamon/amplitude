@@ -1,12 +1,17 @@
 import { LavaEvent } from "@Lava/LavaEvent";
 import { LavaPlayer } from "@Lava/player/LavaPlayer";
 import { LavaNode } from "@Lava/LavaNode";
-import { Track } from "lavalink";
+import { Track, Player } from "lavalink";
+import { root } from "@Util/logger";
+
+const logger = root.fork(__filename);
 
 export async function onEvent(this: LavaNode, e: LavaEvent): Promise<void> {
-	console.log(e);
+	logger.info(e);
 
-	if (e.type === "TrackEndEvent") {
+	if (e.type === "TrackExceptionEvent") {
+		await this.players.get(e.guildId).leave();
+	} else if (e.type === "TrackEndEvent") {
 		const player: LavaPlayer = this.players.get(e.guildId);
 		const queue: Track[] = player.queue;
 

@@ -1,3 +1,7 @@
+import { root } from "@Util/logger";
+
+const logger = root.fork(__filename);
+
 export function onError(err: Error) {
-	console.log(`MusicClient Error: ${err}`);
+	logger.error(err);
 }

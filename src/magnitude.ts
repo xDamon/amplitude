@@ -11,6 +11,7 @@ import {
 } from "@discord-yuh/standard";
 import { Config } from "@Definition/Config";
 import { MusicClient } from "@Client/MusicClient";
+import { root } from "@Util/logger";
 
 let config: Config;
 
@@ -80,8 +81,9 @@ const client: MusicClient = new MusicClient({
 });
 
 process.on("unhandledRejection", (err: Error) => {
-	console.error(`Unhandled Rejection: ${err}`);
+	root.warn(`Unhandled Rejection: ${err}`);
 });
 
 commandLoader.loadDir(commandsDir)
-	.then(() => client.login(config.discord.token));
+	.then(() => client.login(config.discord.token))
+	.then(() => root.info(`Logged in as ${client.user.username}`));
