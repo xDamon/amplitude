@@ -7,13 +7,13 @@ import { root } from "@Util/logger";
 const logger = root.fork(__filename);
 
 export async function onEvent(this: LavaNode, e: LavaEvent): Promise<void> {
-	logger.info(e);
+	const player: LavaPlayer = this.players.get(e.guildId);
+
+	logger.info(`${e.type}[ ${e.reason}(${e.guildId}) ] - ${player.queue.length}`);
 
 	if (e.type === "TrackExceptionEvent") {
-		await this.players.get(e.guildId).leave();
+		await player.leave();
 	} else if (e.type === "TrackEndEvent") {
-		const player: LavaPlayer = this.players.get(e.guildId);
-
 		if (e.reason !== "REPLACED") {
 			if (e.reason === "STOPPED" || e.reason === "CLEANUP") {
 				player.queue = [];
