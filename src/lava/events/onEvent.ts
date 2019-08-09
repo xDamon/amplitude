@@ -19,7 +19,7 @@ export async function onEvent(this: LavaNode, e: LavaEvent): Promise<void> {
 			queue.shift();
 		}
 
-		if (e.reason === "STOPPED" || queue.length === 0) {
+		if (e.reason === "STOPPED" || e.reason === "CLEANUP" || queue.length === 0) {
 			await player.leave();
 
 			player.removeAllListeners();
