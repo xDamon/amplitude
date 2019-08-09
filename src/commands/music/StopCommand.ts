@@ -26,8 +26,6 @@ export class StopCommand extends Command {
 
 		const tag: string = Markdown.bold(message.author.tag);
 
-		player.queue = [];
-
 		await player.stop();
 		await message.channel.send(`Playback stopped manually by ${tag}.`);
 	}

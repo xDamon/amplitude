@@ -13,19 +13,22 @@ export async function onEvent(this: LavaNode, e: LavaEvent): Promise<void> {
 		await this.players.get(e.guildId).leave();
 	} else if (e.type === "TrackEndEvent") {
 		const player: LavaPlayer = this.players.get(e.guildId);
-		const queue: Track[] = player.queue;
 
 		if (e.reason !== "REPLACED") {
-			queue.shift();
+			if (e.reason === "STOPPED" || e.reason === "CLEANUP") {
+				player.queue = [];
+			} else {
+				player.queue.shift();
+			}
 		}
 
-		if (e.reason === "STOPPED" || e.reason === "CLEANUP" || queue.length === 0) {
+		if (player.queue.length === 0) {
 			await player.setVolume(LavaPlayer.DEFAULT_VOLUME);
 			await player.leave();
 
 			player.removeAllListeners();
 		} else {
-			const track: Track = queue[0];
+			const track: Track = player.queue[0];
 
 			if (e.reason !== "REPLACED") {
 				await player.play(track.track);
