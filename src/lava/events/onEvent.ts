@@ -20,6 +20,7 @@ export async function onEvent(this: LavaNode, e: LavaEvent): Promise<void> {
 		}
 
 		if (e.reason === "STOPPED" || e.reason === "CLEANUP" || queue.length === 0) {
+			await player.setVolume(LavaPlayer.DEFAULT_VOLUME);
 			await player.leave();
 
 			player.removeAllListeners();
