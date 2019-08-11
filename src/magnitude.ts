@@ -84,6 +84,15 @@ process.on("unhandledRejection", (err: Error) => {
 	root.warn(`Unhandled Rejection: ${err}`);
 });
 
+process.on("uncaughtException", (err: Error) => {
+	root.warn(`Uncaught Exception: ${err}`);
+
+	for (const player of client.lava.players.values()) {
+		player.leave();
+		player.queue = [];
+	}
+});
+
 commandLoader.loadDir(commandsDir)
 	.then(() => client.login(config.discord.token))
 	.then(() => root.info(`Logged in as ${client.user.username}`));
