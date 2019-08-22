@@ -48,7 +48,7 @@ export class PlayCommand extends Command {
 
 			const queue: Track[] = player.queue;
 			const status: Message = await message.channel.send("Searching...") as Message;
-			const res: TrackResponse = await client.lava.load(identifier);
+			const res: TrackResponse = await client.lava.load(encodeURIComponent(identifier));
 
 			const single: boolean = (
 				res.loadType === "TRACK_LOADED" ||
