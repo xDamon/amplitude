@@ -23,7 +23,7 @@
   "license": "Apache-2.0",
   "dependencies": {
 		"@discord-yuh/standard": "github:discord-yuh/standard",
-		"@discord-yuh/core": "githun:discord-yuh/core",
+		"@discord-yuh/core": "github:discord-yuh/core",
     "discord.js": "^11.4.2",
     "lavalink": "^2.3.1",
     "node-fetch": "^2.3.0"
