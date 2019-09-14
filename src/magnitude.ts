@@ -85,6 +85,10 @@ client.lava.on("error", (err: Error) => {
 	root.warn(`Lavalink Error: ${err}`);
 });
 
+client.lava.on("close", (code: number, reason: string) => {
+	root.warn(`Lavalink Closed: ${code} - ${reason}`);
+});
+
 process.on("unhandledRejection", (err: Error) => {
 	root.warn(`Unhandled Rejection: ${err}`);
 });
