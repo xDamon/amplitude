@@ -81,6 +81,10 @@ const client: MusicClient = new MusicClient({
 	}
 });
 
+client.lava.on("error", (err: Error) => {
+	root.warn(`Lavalink Error: ${err}`);
+});
+
 process.on("unhandledRejection", (err: Error) => {
 	root.warn(`Unhandled Rejection: ${err}`);
 });
