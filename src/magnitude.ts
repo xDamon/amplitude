@@ -12,6 +12,7 @@ import {
 import { Config } from "@Definition/Config";
 import { MusicClient } from "@Client/MusicClient";
 import { root } from "@Util/logger";
+import fetch from "node-fetch";
 
 let config: Config;
 
@@ -95,4 +96,5 @@ process.on("uncaughtException", (err: Error) => {
 
 commandLoader.loadDir(commandsDir)
 	.then(() => client.login(config.discord.token))
-	.then(() => root.info(`Logged in as ${client.user.username}`));
+	.then(() => root.info(`Logged in as ${client.user.username}`))
+	.then(() => setInterval(() => fetch(process.env.LAVALINK_HOSTS_REST).catch(() => null), 60000));
