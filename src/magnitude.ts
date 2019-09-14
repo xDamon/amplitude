@@ -102,6 +102,14 @@ process.on("uncaughtException", (err: Error) => {
 	}
 });
 
+// a stretch
+const connect = client.lava.connection.connect;
+client.lava.connection.connect = () => {
+	if (!client.lava.connection.ws || client.lava.connection.ws.readyState !== client.lava.connection.ws.OPEN) {
+		connect.call(client.lava.connection);
+	}
+};
+
 commandLoader.loadDir(commandsDir)
 	.then(() => client.login(config.discord.token))
 	.then(() => root.info(`Logged in as ${client.user.username}`))

@@ -79,12 +79,21 @@ export class PlayCommand extends Command {
 
 				await status.edit(edited);
 
+				const broken: boolean = (
+					player.status === Status.ERRORED ||
+					player.status === Status.STUCK
+				);
+
 				const mustStart: boolean = (
-					!me.voiceChannelID ||
-					player.status === Status.INSTANTIATED
+					player.status === Status.INSTANTIATED ||
+					broken
 				);
 
 				if (mustStart) {
+					if (broken) {
+						queue.shift();
+					}
+
 					if (player.listenerCount("playing") === 0) {
 						player.on("playing", async (t: Track): Promise<void> => {
 							await message.channel.send(`🎵 Now playing ${this._createTrackTag(t)} 🎵`);
