@@ -105,8 +105,9 @@ process.on("uncaughtException", (err: Error) => {
 // a stretch
 const connect = client.lava.connection.connect;
 client.lava.connection.connect = () => {
-	if (!client.lava.connection.ws || client.lava.connection.ws.readyState !== client.lava.connection.ws.OPEN) {
-		connect.call(client.lava.connection);
+	const c = client.lava.connection;
+	if (!c.ws || (c.ws && (c.ws.readyState === c.ws.CLOSED || c.ws.readyState === c.ws.CLOSING))) {
+		connect.call(c);
 	}
 };
 
