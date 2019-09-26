@@ -11,8 +11,8 @@
   "scripts": {
     "build": "gulp build",
     "start": "node dist/magnitude.js",
-		"build-start": "npm run build && npm run start",
-		"prepare": "npm run build"
+    "build-start": "npm run build && npm run start",
+    "prepare": "npm run build"
   },
   "keywords": [
     "Bot",
@@ -22,15 +22,16 @@
   "author": "Damon",
   "license": "Apache-2.0",
   "dependencies": {
-		"@discord-yuh/standard": "github:discord-yuh/standard",
-		"@discord-yuh/core": "github:discord-yuh/core",
+    "@discord-yuh/core": "github:discord-yuh/core",
+    "@discord-yuh/standard": "github:discord-yuh/standard",
     "discord.js": "^11.4.2",
-    "lavalink": "^2.3.1",
+    "lavalink": "^2.8.1",
     "node-fetch": "^2.3.0"
   },
   "devDependencies": {
     "@discord-yuh/configuration": "github:discord-yuh/configuration",
     "@discord-yuh/gulp-alias": "github:discord-yuh/gulp-alias",
+    "@types/backoff": "^2.5.1",
     "@types/node": "^10.12.18",
     "@types/node-fetch": "^2.1.4",
     "@types/ws": "^6.0.1",
