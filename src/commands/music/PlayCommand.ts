@@ -86,6 +86,7 @@ export class PlayCommand extends Command {
 
 				const mustStart: boolean = (
 					player.status === Status.INSTANTIATED ||
+					player.status === Status.ENDED ||
 					broken
 				);
 
