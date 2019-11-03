@@ -35,7 +35,7 @@ export async function onEvent(this: LavaNode, e: LavaEvent): Promise<void> {
 			player.emit("playing", track);
 		}
 	} else {
-		await player.stop();
 		await player.destroy();
+		await player.leave();
 	}
 }
