@@ -1,4 +1,4 @@
-import { Player, Track } from "lavalink";
+import { Player, Track, JoinOptions } from "lavalink";
 import { LavaNode } from "@Lava/LavaNode";
 
 export class LavaPlayer extends Player {
@@ -8,6 +8,7 @@ export class LavaPlayer extends Player {
 
 	public volume: number;
 	public queue: Track[];
+	public channelID?: string = null;
 
 	public readonly node: LavaNode;
 
@@ -24,6 +25,11 @@ export class LavaPlayer extends Player {
 	): Promise<void> {
 		await super.play(track, { start, end });
 		await this.setVolume(this.volume);
+	}
+
+	public async join(channel: string | null, { deaf = false, mute = false }: JoinOptions = {}) {
+		await super.join(channel);
+		this.channelID = channel;
 	}
 
 	public setVolume(volume: number): Promise<void> {

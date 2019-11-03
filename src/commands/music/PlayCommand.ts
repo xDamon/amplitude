@@ -80,6 +80,7 @@ export class PlayCommand extends Command {
 				await status.edit(edited);
 
 				const broken: boolean = (
+					player.status === Status.UNKNOWN ||
 					player.status === Status.ERRORED ||
 					player.status === Status.STUCK
 				);

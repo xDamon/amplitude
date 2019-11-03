@@ -11,10 +11,10 @@ export async function musicOnly(message: Message, args: any[]): Promise<Middlewa
 	const player: LavaPlayer = client.lava.players.get(message.guild.id);
 	const me: GuildMember = await message.guild.fetchMember(client.user.id);
 
-	if (me.voiceChannelID && player.status !== Status.INSTANTIATED) {
+	if (player.channelID) {
 		const member: GuildMember = await message.guild.fetchMember(message.author.id);
 
-		if (member.voiceChannelID !== me.voiceChannelID) {
+		if (player.channelID !== member.voiceChannelID) {
 			result = "I am not in your voice channel.";
 		}
 	} else {

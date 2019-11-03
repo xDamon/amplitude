@@ -11,9 +11,7 @@ export async function onEvent(this: LavaNode, e: LavaEvent): Promise<void> {
 
 	logger.info(`${e.type}[ ${e.reason}(${e.guildId}) ] - ${player.queue.length}`);
 
-	if (e.type === "TrackExceptionEvent") {
-		await player.leave();
-	} else if (e.type === "TrackEndEvent") {
+	if (e.type === "TrackEndEvent") {
 		if (e.reason !== "REPLACED") {
 			if (e.reason === "STOPPED" || e.reason === "CLEANUP") {
 				player.queue = [];
@@ -36,5 +34,8 @@ export async function onEvent(this: LavaNode, e: LavaEvent): Promise<void> {
 
 			player.emit("playing", track);
 		}
+	} else {
+		await player.stop();
+		await player.destroy();
 	}
 }
