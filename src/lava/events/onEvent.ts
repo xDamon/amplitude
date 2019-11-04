@@ -1,7 +1,7 @@
 import { LavaEvent } from "@Lava/LavaEvent";
 import { LavaPlayer } from "@Lava/player/LavaPlayer";
 import { LavaNode } from "@Lava/LavaNode";
-import { Track, Player } from "lavalink";
+import { Track, Player, Status } from "lavalink";
 import { root } from "@Util/logger";
 
 const logger = root.fork(__filename);
@@ -21,6 +21,10 @@ export async function onEvent(this: LavaNode, e: LavaEvent): Promise<void> {
 		}
 
 		if (player.queue.length === 0) {
+			if (player.status === Status.PLAYING) {
+				await player.stop();
+			}
+
 			await player.setVolume(LavaPlayer.DEFAULT_VOLUME);
 			await player.leave();
 

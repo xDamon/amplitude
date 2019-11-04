@@ -2,7 +2,7 @@ import { Command, middleware, GuildOnly } from "@discord-yuh/standard";
 import { Message } from "discord.js";
 import { MusicClient } from "@Client/MusicClient";
 import { musicOnly } from "@Middleware/musicOnly";
-import { Player } from "lavalink";
+import { Player, Status } from "lavalink";
 
 @GuildOnly
 export class ResumeCommand extends Command {
@@ -23,6 +23,8 @@ export class ResumeCommand extends Command {
 		const client: MusicClient = message.client as MusicClient;
 		const player: Player = client.lava.players.get(message.guild.id);
 
-		await player.pause(false);
+		if (player.status === Status.PAUSED) {
+			await player.pause(false);
+		}
 	}
 }
