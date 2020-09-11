@@ -26,7 +26,7 @@
     "@discord-yuh/standard": "github:discord-yuh/standard",
     "discord.js": "^11.4.2",
     "lavalink": "^2.8.1",
-    "node-fetch": "^2.3.0"
+    "node-fetch": "^2.6.1"
   },
   "devDependencies": {
     "@discord-yuh/configuration": "github:discord-yuh/configuration",
